@@ -42,7 +42,6 @@
         <li><a href="dashboard.jsp"><i class="fas fa-th-large"></i> Dashboard</a></li>
         <li><a href="ProductServlet"><i class="fas fa-box"></i> Products</a></li>
         <li><a href="CategoryServlet"><i class="fas fa-tags"></i> Categories</a></li>
-        <li><a href="SupplierServlet"><i class="fas fa-truck"></i> Suppliers</a></li>
         <li><a href="OrderServlet"><i class="fas fa-shopping-basket"></i> Orders</a></li>
         <li><a href="reports.jsp" class="active"><i class="fas fa-chart-line"></i> Reports</a></li>
         <li><a href="UserMgmtServlet"><i class="fas fa-users"></i> Users</a></li>

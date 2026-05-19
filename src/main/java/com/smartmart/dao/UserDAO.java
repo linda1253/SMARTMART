@@ -89,7 +89,7 @@ public class UserDAO {
      */
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<>();
-        String sql = "SELECT * FROM User ORDER BY CreatedAt DESC";
+        String sql = "SELECT * FROM User";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
@@ -238,8 +238,6 @@ public class UserDAO {
         u.setPhone(rs.getString("Phone"));
         u.setRole(rs.getString("Role"));
         u.setApprovalStatus(rs.getString("ApprovalStatus"));
-        Timestamp ts = rs.getTimestamp("CreatedAt");
-        if (ts != null) u.setCreatedAt(ts.toLocalDateTime());
         return u;
     }
 }

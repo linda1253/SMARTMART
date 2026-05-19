@@ -14,7 +14,6 @@ public class User {
     private String phone;
     private String role;              // "Admin" or "User"
     private String approvalStatus;   // "Pending" or "Approved"
-    private LocalDateTime createdAt;
 
     public User() {}
 
@@ -59,6 +58,4 @@ public class User {
     public String getApprovalStatus()             { return approvalStatus; }
     public void setApprovalStatus(String s)       { this.approvalStatus = s; }
 
-    public LocalDateTime getCreatedAt()           { return createdAt; }
-    public void setCreatedAt(LocalDateTime t)     { this.createdAt = t; }
 }
