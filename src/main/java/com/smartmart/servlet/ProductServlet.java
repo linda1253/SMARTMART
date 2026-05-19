@@ -2,7 +2,6 @@ package com.smartmart.servlet;
 
 import com.smartmart.dao.CategoryDAO;
 import com.smartmart.dao.ProductDAO;
-import com.smartmart.dao.SupplierDAO;
 import com.smartmart.model.Product;
 import com.smartmart.util.ValidationUtil;
 
@@ -16,7 +15,7 @@ import java.io.IOException;
  * Controller for product management (Admin only).
  *
  * <p><b>GET /ProductServlet</b> — loads the product management page with all products,
- * categories, and suppliers for the add/edit form dropdowns.</p>
+ * categories for the add/edit form dropdowns.</p>
  *
  * <p><b>POST /ProductServlet</b> — handles add, edit, and delete actions via the
  * hidden {@code action} parameter:
@@ -32,14 +31,13 @@ public class ProductServlet extends HttpServlet {
 
     private final ProductDAO  productDAO  = new ProductDAO();
     private final CategoryDAO categoryDAO = new CategoryDAO();
-    private final SupplierDAO supplierDAO = new SupplierDAO();
 
     /**
      * Loads the product management page.
      *
      * <p><b>Input:</b> none (optional query param {@code msg} for flash messages)</p>
      * <p><b>Output:</b> forwards to product_mgmt.jsp with request attributes:
-     *   {@code productList}, {@code categoryList}, {@code supplierList}</p>
+     *   {@code productList}, {@code categoryList}</p>
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -47,7 +45,6 @@ public class ProductServlet extends HttpServlet {
 
         request.setAttribute("productList",  productDAO.getAllProducts());
         request.setAttribute("categoryList", categoryDAO.getAllCategories());
-        request.setAttribute("supplierList", supplierDAO.getAllSuppliers());
         request.getRequestDispatcher("product_mgmt.jsp").forward(request, response);
     }
 
@@ -63,7 +60,6 @@ public class ProductServlet extends HttpServlet {
      *   <li>{@code price}       — decimal price</li>
      *   <li>{@code stock}       — integer stock quantity</li>
      *   <li>{@code categoryId}  — FK to Category</li>
-     *   <li>{@code supplierId}  — FK to Supplier (optional)</li>
      * </ul>
      * </p>
      * <p><b>Output:</b> redirects to ProductServlet with a {@code msg} flash message.</p>
@@ -85,7 +81,6 @@ public class ProductServlet extends HttpServlet {
         String priceStr     = request.getParameter("price");
         String stockStr     = request.getParameter("stock");
         String categoryStr  = request.getParameter("categoryId");
-        String supplierStr  = request.getParameter("supplierId");
 
         if (ValidationUtil.isNullOrEmpty(productName, priceStr, stockStr, categoryStr)) {
             request.setAttribute("error", "Product name, price, stock, and category are required.");
@@ -109,9 +104,6 @@ public class ProductServlet extends HttpServlet {
         product.setPrice(Double.parseDouble(priceStr));
         product.setStock(Integer.parseInt(stockStr));
         product.setCategoryId(Integer.parseInt(categoryStr));
-        if (supplierStr != null && !supplierStr.isEmpty()) {
-            product.setSupplierId(Integer.parseInt(supplierStr));
-        }
 
         if ("add".equals(action)) {
             boolean ok = productDAO.addProduct(product);

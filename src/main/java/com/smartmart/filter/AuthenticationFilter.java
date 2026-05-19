@@ -67,9 +67,8 @@ public class AuthenticationFilter implements Filter {
         // ── 4. Admin-only routes ───────────────────────────────
         if (uri.contains("/admin/") || uri.endsWith("dashboard.jsp")
                 || uri.endsWith("product_mgmt.jsp") || uri.endsWith("category_mgmt.jsp")
-                || uri.endsWith("supplier_mgmt.jsp") || uri.endsWith("order_mgmt.jsp")
-                || uri.endsWith("user_mgmt.jsp") || uri.endsWith("reports.jsp")
-                || uri.endsWith("settings.jsp")) {
+                || uri.endsWith("order_mgmt.jsp") || uri.endsWith("user_mgmt.jsp")
+                || uri.endsWith("reports.jsp") || uri.endsWith("settings.jsp")) {
             if (!isLoggedIn) {
                 res.sendRedirect(contextPath + "/login.jsp");
                 return;

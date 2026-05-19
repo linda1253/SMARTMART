@@ -1,0 +1,56 @@
+-- Use Database
+USE DepartmentStore;
+
+-- User table
+
+CREATE TABLE `User` (
+  UserId INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  Role VARCHAR(20) NOT NULL,
+  FirstName VARCHAR(50) NOT NULL,
+  LastName VARCHAR(50) NOT NULL,
+  Email VARCHAR(100) NOT NULL UNIQUE,
+  Phone VARCHAR(20) NOT NULL,
+  Password VARCHAR(255) NOT NULL,
+  ApprovalStatus VARCHAR(20)
+);
+
+-- Category table
+
+CREATE TABLE Category (
+  CategoryId INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  CategoryName VARCHAR(100) NOT NULL,
+  Description TEXT
+);
+
+-- Product table
+
+CREATE TABLE Product (
+  ProductId INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  ProductName VARCHAR(100) NOT NULL,
+  Price DECIMAL(10,2) NOT NULL,
+  Stock INT NOT NULL DEFAULT 0,
+  CategoryId INT NOT NULL,
+  FOREIGN KEY (CategoryId) REFERENCES Category(CategoryId) ON DELETE CASCADE
+);
+
+-- Orders table
+
+CREATE TABLE Orders (
+  OrderId INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  OrderDate DATE NOT NULL,
+  OrderStatus VARCHAR(50) NOT NULL,
+  UserId INT NOT NULL,
+  FOREIGN KEY (UserId) REFERENCES User(UserId) ON DELETE CASCADE
+);
+
+-- OrderItem table
+
+CREATE TABLE OrderItem (
+  OrderId INT NOT NULL,
+  ProductId INT NOT NULL,
+  Quantity INT NOT NULL DEFAULT 1,
+  Price DECIMAL(10,2) NOT NULL,
+  PRIMARY KEY (OrderId, ProductId),
+  FOREIGN KEY (OrderId) REFERENCES Orders(OrderId) ON DELETE CASCADE,
+  FOREIGN KEY (ProductId) REFERENCES Product(ProductId) ON DELETE CASCADE
+);

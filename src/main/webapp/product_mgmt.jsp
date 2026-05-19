@@ -1,6 +1,6 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="com.smartmart.model.Product, com.smartmart.model.Category, com.smartmart.model.Supplier, com.smartmart.model.User, java.util.List" %>
+<%@ page import="com.smartmart.model.Product, com.smartmart.model.Category, com.smartmart.model.User, java.util.List" %>
 <%
     User admin = (User) session.getAttribute("user");
     if (admin == null || !"Admin".equalsIgnoreCase(admin.getRole())) {
@@ -8,7 +8,6 @@
     }
     List<Product>  productList  = (List<Product>)  request.getAttribute("productList");
     List<Category> categoryList = (List<Category>) request.getAttribute("categoryList");
-    List<Supplier> supplierList = (List<Supplier>) request.getAttribute("supplierList");
     String msg = request.getParameter("msg");
 %>
 <!DOCTYPE html>
@@ -31,7 +30,6 @@
         <li><a href="dashboard.jsp"><i class="fas fa-th-large"></i> Dashboard</a></li>
         <li><a href="ProductServlet" class="active"><i class="fas fa-box"></i> Products</a></li>
         <li><a href="CategoryServlet"><i class="fas fa-tags"></i> Categories</a></li>
-        <li><a href="SupplierServlet"><i class="fas fa-truck"></i> Suppliers</a></li>
         <li><a href="OrderServlet"><i class="fas fa-shopping-basket"></i> Orders</a></li>
         <li><a href="reports.jsp"><i class="fas fa-chart-line"></i> Reports</a></li>
         <li><a href="UserMgmtServlet"><i class="fas fa-users"></i> Users</a></li>
@@ -72,7 +70,6 @@
                         <th>Category</th>
                         <th>Price (Rs)</th>
                         <th>Stock</th>
-                        <th>Supplier</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -90,11 +87,10 @@
                                 <%= p.getStock() %>
                             </span>
                         </td>
-                        <td><%= p.getSupplierName() != null ? p.getSupplierName() : "-" %></td>
                         <td>
                             <div style="display:flex; gap:0.5rem;">
                                 <button class="btn btn-outline btn-xs"
-                                    onclick="openEditModal(<%= p.getProductId() %>, '<%= p.getProductName().replace("'","\'") %>', '<%= p.getDescription() != null ? p.getDescription().replace("'","\'") : "" %>', <%= p.getPrice() %>, <%= p.getStock() %>, <%= p.getCategoryId() %>, '<%= p.getSupplierId() != null ? p.getSupplierId() : "" %>')">
+                                    onclick="openEditModal(<%= p.getProductId() %>, '<%= p.getProductName().replace("'","\'") %>', '<%= p.getDescription() != null ? p.getDescription().replace("'","\'") : "" %>', <%= p.getPrice() %>, <%= p.getStock() %>, <%= p.getCategoryId() %>)"
                                     <i class="fas fa-edit"></i> Edit
                                 </button>
                                 <form action="ProductServlet" method="post" onsubmit="return confirm('Delete this product?');" style="display:inline;">
@@ -149,15 +145,6 @@
                         <% } } %>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label class="form-label">Supplier</label>
-                    <select name="supplierId" class="form-control">
-                        <option value="">None</option>
-                        <% if (supplierList != null) { for (Supplier s : supplierList) { %>
-                        <option value="<%= s.getSupplierId() %>"><%= s.getSupplierName() %></option>
-                        <% } } %>
-                    </select>
-                </div>
             </div>
             <div style="display:flex; gap:1rem; margin-top:0.5rem;">
                 <button type="submit" class="btn btn-primary" style="flex:1;">Add Product</button>
@@ -204,15 +191,6 @@
                         <% } } %>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label class="form-label">Supplier</label>
-                    <select name="supplierId" id="editSupplierId" class="form-control">
-                        <option value="">None</option>
-                        <% if (supplierList != null) { for (Supplier s : supplierList) { %>
-                        <option value="<%= s.getSupplierId() %>"><%= s.getSupplierName() %></option>
-                        <% } } %>
-                    </select>
-                </div>
             </div>
             <div style="display:flex; gap:1rem; margin-top:0.5rem;">
                 <button type="submit" class="btn btn-primary" style="flex:1;">Save Changes</button>
@@ -232,7 +210,6 @@ function openEditModal(id, name, desc, price, stock, catId, supId) {
     document.getElementById('editPrice').value       = price;
     document.getElementById('editStock').value       = stock;
     document.getElementById('editCategoryId').value  = catId;
-    document.getElementById('editSupplierId').value  = supId;
     openModal('editModal');
 }
 // Close modal on overlay click

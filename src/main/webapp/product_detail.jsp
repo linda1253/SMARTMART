@@ -1,4 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.smartmart.dao.ProductDAO, com.smartmart.model.Product" %>
 <%
@@ -112,12 +112,6 @@
         </form>
         <% } else { %>
         <span class="badge badge-danger" style="font-size:0.9rem; padding:0.5rem 1rem;">Out of Stock</span>
-        <% } %>
-
-        <% if (product.getSupplierName() != null) { %>
-        <p style="margin-top:1.5rem; font-size:0.85rem; color:var(--text-muted);">
-            <i class="fas fa-truck"></i> Supplied by: <%= product.getSupplierName() %>
-        </p>
         <% } %>
     </div>
 </div>

@@ -28,7 +28,6 @@
         <li><a href="dashboard.jsp"><i class="fas fa-th-large"></i> Dashboard</a></li>
         <li><a href="ProductServlet"><i class="fas fa-box"></i> Products</a></li>
         <li><a href="CategoryServlet"><i class="fas fa-tags"></i> Categories</a></li>
-        <li><a href="SupplierServlet"><i class="fas fa-truck"></i> Suppliers</a></li>
         <li><a href="OrderServlet"><i class="fas fa-shopping-basket"></i> Orders</a></li>
         <li><a href="reports.jsp"><i class="fas fa-chart-line"></i> Reports</a></li>
         <li><a href="UserMgmtServlet" class="active"><i class="fas fa-users"></i> Users</a></li>
@@ -79,9 +78,6 @@
                         <td><%= u.getPhone() %></td>
                         <td><span class="badge <%= "Admin".equals(u.getRole()) ? "badge-info" : "badge-neutral" %>"><%= u.getRole() %></span></td>
                         <td><span class="badge <%= "Approved".equals(u.getApprovalStatus()) ? "badge-success" : "badge-warning" %>"><%= u.getApprovalStatus() %></span></td>
-                        <td style="font-size:0.8rem; color:var(--text-muted);">
-                            <%= u.getCreatedAt() != null ? u.getCreatedAt().toLocalDate() : "-" %>
-                        </td>
                         <td>
                             <% if (!"Admin".equals(u.getRole())) { %>
                             <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
