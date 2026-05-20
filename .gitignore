@@ -48,3 +48,12 @@ buildNumber.properties
 # OS generated files
 .DS_Store
 Thumbs.db
+
+# Eclipse IDE
+.project
+.classpath
+.settings/
+.metadata/
+
+# Node (if you ever add frontend build tools)
+node_modules/
