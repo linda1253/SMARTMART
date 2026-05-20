@@ -81,10 +81,7 @@
         <p class="category"><%= product.getCategoryName() %></p>
         <h1><%= product.getProductName() %></h1>
         <p class="price">Rs <%= String.format("%.2f", product.getPrice()) %></p>
-        <p class="description">
-            <%= product.getDescription() != null && !product.getDescription().isEmpty()
-                ? product.getDescription() : "Quality product from SmartMart." %>
-        </p>
+
 
         <% if (product.getStock() > 0) { %>
         <p style="color:var(--success); font-weight:600; margin-bottom:1rem;">

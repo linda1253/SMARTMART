@@ -145,15 +145,14 @@ public class ProductDAO {
      * @return {@code true} if the insert succeeded
      */
     public boolean addProduct(Product product) {
-        String sql = "INSERT INTO Product (ProductName, Description, Price, Stock, CategoryId) "
-                   + "VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Product (ProductName, Price, Stock, CategoryId) "
+                   + "VALUES (?, ?, ?, ?)";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, product.getProductName());
-            ps.setString(2, product.getDescription());
-            ps.setDouble(3, product.getPrice());
-            ps.setInt(4, product.getStock());
-            ps.setInt(5, product.getCategoryId());
+            ps.setDouble(2, product.getPrice());
+            ps.setInt(3, product.getStock());
+            ps.setInt(4, product.getCategoryId());
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -168,16 +167,15 @@ public class ProductDAO {
      * @return {@code true} if the update succeeded
      */
     public boolean updateProduct(Product product) {
-        String sql = "UPDATE Product SET ProductName=?, Description=?, Price=?, Stock=?, "
+        String sql = "UPDATE Product SET ProductName=?, Price=?, Stock=?, "
                    + "CategoryId=? WHERE ProductId=?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, product.getProductName());
-            ps.setString(2, product.getDescription());
-            ps.setDouble(3, product.getPrice());
-            ps.setInt(4, product.getStock());
-            ps.setInt(5, product.getCategoryId());
-            ps.setInt(6, product.getProductId());
+            ps.setDouble(2, product.getPrice());
+            ps.setInt(3, product.getStock());
+            ps.setInt(4, product.getCategoryId());
+            ps.setInt(5, product.getProductId());
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -208,7 +206,6 @@ public class ProductDAO {
         Product p = new Product();
         p.setProductId(rs.getInt("ProductId"));
         p.setProductName(rs.getString("ProductName"));
-        p.setDescription(rs.getString("Description"));
         p.setPrice(rs.getDouble("Price"));
         p.setStock(rs.getInt("Stock"));
         p.setCategoryId(rs.getInt("CategoryId"));

@@ -77,7 +77,6 @@ public class ProductServlet extends HttpServlet {
 
         // Shared validation for add and edit
         String productName  = request.getParameter("productName");
-        String description  = request.getParameter("description");
         String priceStr     = request.getParameter("price");
         String stockStr     = request.getParameter("stock");
         String categoryStr  = request.getParameter("categoryId");
@@ -100,7 +99,6 @@ public class ProductServlet extends HttpServlet {
 
         Product product = new Product();
         product.setProductName(productName.trim());
-        product.setDescription(description != null ? description.trim() : "");
         product.setPrice(Double.parseDouble(priceStr));
         product.setStock(Integer.parseInt(stockStr));
         product.setCategoryId(Integer.parseInt(categoryStr));

@@ -66,7 +66,7 @@
             <div class="value-card card">
                 <i class="fas fa-star"></i>
                 <h3>Quality First</h3>
-                <p style="color:var(--text-muted);">We source only the best products from trusted suppliers to ensure you get the quality you deserve.</p>
+                <p style="color:var(--text-muted);">We source only the best products from trusted sources to ensure you get the quality you deserve.</p>
             </div>
             <div class="value-card card">
                 <i class="fas fa-hand-holding-heart"></i>
