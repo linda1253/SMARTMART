@@ -90,7 +90,7 @@
                         <td>
                             <div style="display:flex; gap:0.5rem;">
                                 <button class="btn btn-outline btn-xs"
-                                    onclick="openEditModal(<%= p.getProductId() %>, '<%= p.getProductName().replace("'","\'") %>', '<%= p.getDescription() != null ? p.getDescription().replace("'","\'") : "" %>', <%= p.getPrice() %>, <%= p.getStock() %>, <%= p.getCategoryId() %>)"
+                                    onclick="openEditModal(<%= p.getProductId() %>, '<%= p.getProductName().replace("'","\'") %>', <%= p.getPrice() %>, <%= p.getStock() %>, <%= p.getCategoryId() %>)">
                                     <i class="fas fa-edit"></i> Edit
                                 </button>
                                 <form action="ProductServlet" method="post" onsubmit="return confirm('Delete this product?');" style="display:inline;">
@@ -120,10 +120,6 @@
             <div class="form-group">
                 <label class="form-label">Product Name *</label>
                 <input type="text" name="productName" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label class="form-label">Description</label>
-                <textarea name="description" class="form-control" rows="2"></textarea>
             </div>
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
                 <div class="form-group">
@@ -168,10 +164,6 @@
                 <label class="form-label">Product Name *</label>
                 <input type="text" name="productName" id="editProductName" class="form-control" required>
             </div>
-            <div class="form-group">
-                <label class="form-label">Description</label>
-                <textarea name="description" id="editDescription" class="form-control" rows="2"></textarea>
-            </div>
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
                 <div class="form-group">
                     <label class="form-label">Price (Rs) *</label>
@@ -203,10 +195,9 @@
 <script>
 function openModal(id) { document.getElementById(id).classList.add('active'); }
 function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-function openEditModal(id, name, desc, price, stock, catId, supId) {
+function openEditModal(id, name, price, stock, catId) {
     document.getElementById('editProductId').value   = id;
     document.getElementById('editProductName').value = name;
-    document.getElementById('editDescription').value = desc;
     document.getElementById('editPrice').value       = price;
     document.getElementById('editStock').value       = stock;
     document.getElementById('editCategoryId').value  = catId;
