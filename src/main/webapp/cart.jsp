@@ -61,6 +61,13 @@
     <h2 style="margin-bottom:0;">Shopping Cart</h2>
 </div>
 
+<% String checkoutError = (String) request.getAttribute("checkoutError");
+   if (checkoutError != null) { %>
+<div style="max-width:1100px; margin:0 auto 1.5rem auto; padding:1rem 1.5rem; background:#fee2e2; color:#b91c1c; border-radius:var(--radius); border:1px solid #f87171;">
+    <i class="fas fa-exclamation-circle"></i> <%= checkoutError %>
+</div>
+<% } %>
+
 <div class="cart-layout">
     <%
         List<int[]>   cart         = (List<int[]>)   request.getAttribute("cart");
@@ -74,7 +81,9 @@
         <p style="margin-bottom:1.5rem;">Add some products to get started.</p>
         <a href="products.jsp" class="btn btn-primary">Browse Products</a>
     </div>
-    <% } else { %>
+    <% } else { 
+           boolean hasStockIssue = false;
+    %>
     <div class="cart-items card">
         <h3 style="margin-bottom:1rem;">Cart Items (<%= cart.size() %>)</h3>
         <% for (int i = 0; i < cart.size(); i++) {
@@ -89,6 +98,11 @@
             <div style="flex:1;">
                 <p class="cart-product-name"><%= p.getProductName() %></p>
                 <p class="cart-product-price">Rs <%= String.format("%.2f", p.getPrice()) %> each</p>
+                <% if (qty > p.getStock()) { hasStockIssue = true; %>
+                <p style="color:var(--danger); font-size:0.8rem; margin-top:0.25rem;">
+                    <i class="fas fa-exclamation-triangle"></i> Insufficient stock (Available: <%= p.getStock() %>)
+                </p>
+                <% } %>
             </div>
             <form action="CartServlet" method="post" style="display:flex; align-items:center; gap:0.5rem;">
                 <input type="hidden" name="action" value="update">
@@ -127,9 +141,18 @@
             <span>Total</span>
             <span>Rs <%= String.format("%.2f", cartTotal + (cartTotal > 1250 ? 0 : 100)) %></span>
         </div>
+        <% if (hasStockIssue) { %>
+        <div style="color:var(--danger); font-size:0.85rem; margin-top:1rem; text-align:center;">
+            Please resolve stock issues to checkout.
+        </div>
+        <button disabled class="btn btn-secondary" style="width:100%; margin-top:0.5rem; padding:0.9rem; cursor:not-allowed; opacity:0.6;">
+            <i class="fas fa-lock"></i> Proceed to Checkout
+        </button>
+        <% } else { %>
         <a href="checkout.jsp" class="btn btn-primary" style="width:100%; margin-top:1.25rem; padding:0.9rem;">
             <i class="fas fa-lock"></i> Proceed to Checkout
         </a>
+        <% } %>
     </div>
     <% } %>
 </div>
