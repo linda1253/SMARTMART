@@ -30,22 +30,3 @@ INSERT INTO Product (ProductName, Price, Stock, CategoryId) VALUES
 ('Wireless Earbuds', 1800.00, 8, 5),
 ('USB-C Charger (65W)', 850.00, 15, 5),
 ('Power Bank (10000mAh)', 1200.00, 6, 5);
-
--- Orders
-INSERT INTO Orders (OrderDate, OrderStatus, UserId) VALUES
-('2026-04-10', 'Completed', 2),
-('2026-04-15', 'Processing', 3),
-('2026-04-18', 'Pending', 2),
-('2026-05-01', 'Completed', 3),
-('2026-05-10', 'Completed', 2);
-
--- Order Items
-INSERT INTO OrderItem (OrderId, ProductId, Quantity, Price) VALUES
-(1, 1, 2, 120.00),
-(1, 2, 3, 85.00),
-(1, 4, 1, 180.00),
-(1, 3, 2, 65.00),
-(2, 6, 1, 450.00),
-(3, 7, 1, 850.00),
-(4, 10, 1, 2500.00),
-(5, 11, 1, 650.00);
